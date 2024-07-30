@@ -1,0 +1,24 @@
+
+
+  setTabOrder() {
+    let tabIndex = 1;
+    
+    const setTabIndex = (section: Section) => {
+      section.rows.forEach(row => {
+        row.columns.forEach(column => {
+          column.inputFields.forEach(inputField => {
+            const inputElement = this.el.nativeElement.querySelector(`#${inputField.id}`);
+            if (inputElement) {
+              this.renderer.setAttribute(inputElement, 'tabindex', `${tabIndex++}`);
+            }
+          });
+          if (column.nestedSections) {
+            column.nestedSections.forEach(nestedSection => setTabIndex(nestedSection));
+          }
+        });
+      });
+    };
+
+    this.sections.forEach(section => setTabIndex(section));
+  }
+}
