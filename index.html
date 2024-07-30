@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Tab Order</title>
+  <style>
+    .section {
+      margin-bottom: 20px;
+      padding-left: 20px;
+      border-left: 2px solid #ccc;
+    }
+  
+    .column {
+      flex: 1;
+      padding: 10px;
+      margin-right: 10px;
+    }
+    .column:last-child {
+      margin-right: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div class="section" data-section-id="section1">
+      <div class="row">
+        <div class="column" data-column-id="col1">
+          <input type="text" value="Input 1-1">
+          <input type="text" value="Input 1-2">
+          <input type="text" value="Input 1-3">
+
+        </div>
+        <div class="column" data-column-id="col2">
+          <input type="text" value="Input 1-4">
+          <input type="text" value="Input 1-5">
+          <input type="text" value="Input 1-6">
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="column" data-column-id="col3">
+          <input type="text" value="Input 1-7">
+          <input type="text" value="Input 1-8">
+        </div>
+        <div class="column" data-column-id="col4">
+          <input type="text" value="Input 1-9">
+          <input type="text" value="Input 1-10">
+        </div>
+      </div>
+    </div>
+    <div class="section" data-section-id="section2">
+      <div class="row">
+        <div class="column" data-column-id="col5">
+          <input type="text" value="Input 2-1">
+          <input type="text" value="Input 2-2">
+        </div>
+        <div class="column" data-column-id="col6">
+          <input type="text" value="Input 2-3">
+          <input type="text" value="Input 2-4">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function setDynamicTabOrder(container) {
+      let tabIndex = 1;
+      const sections = container.querySelectorAll('.section');
+
+      sections.forEach(section => {
+        const rows = section.querySelectorAll('.row');
+        rows.forEach(row => {
+          const columns = row.querySelectorAll('.column');
+          columns.forEach(column => {
+            const inputs = column.querySelectorAll('input');
+            inputs.forEach(input => {
+              input.tabIndex = tabIndex++;
+            });
+          });
+        });
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('container');
+      setDynamicTabOrder(container);
+    });
+  </script>
+</body>
+</html>
